@@ -1,3 +1,4 @@
-export default function ReviewList() {
-  return <div>Review</div>;
+export default function ReviewList({ items }) {
+  console.log(items);
+  return <ul></ul>;
 }
