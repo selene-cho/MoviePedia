@@ -1,0 +1,22 @@
+import './ReviewListItem.css';
+
+// createdAt 숫자형 데이터 YYYY.MM.DD로 보여주기 위한 함수
+function formatDate(value) {
+  const date = new Date(value);
+  return `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
+}
+
+// Review '하나씩' 보여주는 컴포넌트
+export default function ReviewListItem({ item }) {
+  return (
+    <div className="ReviewListItem">
+      <img className="ReviewListItem-img" src={item.imgUrl} alt={item.title} />
+      <div>
+        <h1>{item.title}</h1>
+        <p>{item.rating}</p>
+        <p>{formatDate(item.createdAt)}</p>
+        <p>{item.content}</p>
+      </div>
+    </div>
+  );
+}
