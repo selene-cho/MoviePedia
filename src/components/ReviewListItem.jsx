@@ -7,7 +7,8 @@ function formatDate(value) {
 }
 
 // Review '하나씩' 보여주는 컴포넌트
-export default function ReviewListItem({ item }) {
+export default function ReviewListItem({ item, onDelete }) {
+  const handleDeleteClick = () => onDelete(item.id);
   return (
     <div className="ReviewListItem">
       <img className="ReviewListItem-img" src={item.imgUrl} alt={item.title} />
@@ -16,6 +17,7 @@ export default function ReviewListItem({ item }) {
         <p>{item.rating}</p>
         <p>{formatDate(item.createdAt)}</p>
         <p>{item.content}</p>
+        <button onClick={handleDeleteClick}>삭제</button>
       </div>
     </div>
   );
