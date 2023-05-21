@@ -17,7 +17,7 @@ export default function ReviewListItem({ item, onDelete }) {
         <p>{item.rating}</p>
         <p>{formatDate(item.createdAt)}</p>
         <p>{item.content}</p>
-        <button onClick={handleDeleteClick}>삭제</button>
+        <button onClick={handleDeleteClick}>삭 제</button>
       </div>
     </div>
   );
