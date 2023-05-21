@@ -13,7 +13,8 @@ export default function ReviewForm() {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
-      //[대괄호] name의 값으로 프로퍼티 명을 지정하고 해당하는 값 지정 가능
+      // [표현식]: 값 -> 표현식의 값을 프로퍼티 명으로 사용가능
+      // [e.target.name]: e.target: value
     }));
   };
   const handleSubmit = (e) => {
