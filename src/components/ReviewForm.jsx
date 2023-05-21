@@ -8,13 +8,23 @@ export default function ReviewForm() {
     content: '',
   });
 
+  function sanitize(type, value) {
+    switch (
+      type // input이 숫자형일 때만 따로 처리
+    ) {
+      case 'number':
+        return Number(value) || 0;
+
+      default:
+        return value;
+    }
+  }
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
-      // [표현식]: 값 -> 표현식의 값을 프로퍼티 명으로 사용가능
-      // [e.target.name]: e.target: value
+      [name]: sanitize(type, value),
     }));
   };
   const handleSubmit = (e) => {
