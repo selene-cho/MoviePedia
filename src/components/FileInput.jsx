@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function FileInput({ name, onChange, type, value }) {
+export default function FileInput({ name, onChange, value }) {
   const [preview, setPreview] = useState(); // 파일 미리보기 주소를 문자열로 저장
   const inputRef = useRef();
 
   const handleChange = (e) => {
     const nextValue = e.target.files[0];
-    onChange(name, nextValue, type);
+    onChange(name, nextValue);
   };
 
   const handleClearClick = () => {
@@ -34,7 +34,7 @@ export default function FileInput({ name, onChange, type, value }) {
     <div>
       <img src={preview} alt="이미지 미리보기" />
       <input
-        type={type}
+        type="file"
         accept="image/png, image/jpeg"
         onChange={handleChange}
         ref={inputRef}
