@@ -11,7 +11,7 @@ const INITIAL_VALUES = {
   imgFile: null,
 };
 
-export default function ReviewForm() {
+export default function ReviewForm({ onSubmitSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
   const [values, setValues] = useState(INITIAL_VALUES);
@@ -33,16 +33,20 @@ export default function ReviewForm() {
     formData.append('rating', values.rating);
     formData.append('content', values.content);
     formData.append('imgFile', values.imgFile);
+
+    let result;
     try {
       setSubmittingError(null);
       setIsSubmitting(true);
-      await createReview(formData);
+      result = await createReview(formData); // review 생성하는 api request 보냄
     } catch (error) {
       setSubmittingError(error);
       return;
     } finally {
       setIsSubmitting(false);
     }
+    const { review } = result;
+    onSubmitSuccess(review); // request 성공하면 response 데이터를 가지고 onSubmitSuccess 함수 실행
     setValues(INITIAL_VALUES); // request 끝나면 form 초기화
   };
 

@@ -46,6 +46,12 @@ export default function App() {
     handleLoad({ order, offset, limit: LIMIT });
   };
 
+  // 새로 만들어진 review를 받아서 items의 맨 앞에 추가
+  const handleSubmitSuccess = (review) => {
+    // 비동기로 일어나기 때문에 콜백형태로 사용
+    setItems((prevItems) => [review, ...prevItems]);
+  };
+
   useEffect(() => {
     handleLoad({ order, offset: 0, limit: LIMIT });
   }, [order]);
@@ -56,7 +62,7 @@ export default function App() {
         <button onClick={handleNewestClick}>최신순</button>
         <button onClick={handleBestClick}>베스트순</button>
       </div>
-      <ReviewForm />
+      <ReviewForm onSubmitSuccess={handleSubmitSuccess} />
       <ReviewList items={sortedItems} onDelete={handleDelete} />
       {hasNext && (
         <button disabled={isLoading} onClick={handleLoadMore}>
