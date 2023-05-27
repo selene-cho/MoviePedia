@@ -11,7 +11,12 @@ const INITIAL_VALUES = {
   imgFile: null,
 };
 
-export default function ReviewForm({ onSubmitSuccess }) {
+export default function ReviewForm({
+  initialValues = INITIAL_VALUES,
+  initialPreview,
+  onSubmitSuccess,
+  onCancel,
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
   const [values, setValues] = useState(INITIAL_VALUES);
@@ -47,7 +52,7 @@ export default function ReviewForm({ onSubmitSuccess }) {
     }
     const { review } = result;
     onSubmitSuccess(review); // request 성공하면 response 데이터를 가지고 onSubmitSuccess 함수 실행
-    setValues(INITIAL_VALUES); // request 끝나면 form 초기화
+    setValues(INITIAL_VALUES); // request 끝나면 form 초기화,
   };
 
   return (
@@ -55,6 +60,7 @@ export default function ReviewForm({ onSubmitSuccess }) {
       <FileInput
         name="imgFile"
         value={values.imgFile}
+        initialPreview={initialPreview}
         onChange={handleChange}
       />
       <input name="title" value={values.title} onChange={handleInputChange} />
@@ -71,6 +77,7 @@ export default function ReviewForm({ onSubmitSuccess }) {
       <button type="submit" disabled={isSubmitting}>
         확인
       </button>
+      {onCancel && <button onClick={onCancel}>취소</button>}
       {submittingError?.message && <div>{submittingError.message}</div>}
     </form>
   );

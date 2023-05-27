@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function FileInput({ name, onChange, value }) {
-  const [preview, setPreview] = useState(); // 파일 미리보기 주소를 문자열로 저장
+export default function FileInput({ name, onChange, value, initialPreview }) {
+  const [preview, setPreview] = useState(initialPreview); // 파일 미리보기 주소를 문자열로 저장
   const inputRef = useRef();
 
   const handleChange = (e) => {
@@ -24,11 +24,11 @@ export default function FileInput({ name, onChange, value }) {
     setPreview(nextPreview);
 
     return () => {
-      setPreview(); // preview state 빈값으로 만듦
+      setPreview(initialPreview);
       URL.revokeObjectURL(nextPreview); // 사이드 이펙트 정리
       // 리턴값 기억해뒀다가 다음 value state 변경될 때 실행, ObjectURL 더이상 사용하지 않으니까 정리
     };
-  }, [value]); // 파일 선택할 때마다 미리보기 주소 변경
+  }, [value, initialPreview]); // 파일 선택할 때마다 미리보기 주소 변경
 
   return (
     <div>
